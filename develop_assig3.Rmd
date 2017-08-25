@@ -1,0 +1,25 @@
+---
+title: "Plotly-Week 3 Assigment"
+author: "Wen Che"
+date: "August 23, 2017"
+output:
+  ioslides_presentation: default
+---
+
+
+
+## Dimonds
+```{r cars, echo = FALSE,comment="",message=FALSE,warning=FALSE}
+library(ggplot2)
+library(plotly)
+set.seed(123)
+d <- diamonds[sample(nrow(diamonds), 1000), ]
+plot_ly(d, x = ~carat, y = ~price, color = ~color,
+        size = ~carat, text = ~paste("Clarity: ", clarity))
+```
+
+
+## Thanks
+
+
+

@@ -1,0 +1,33 @@
+---
+title: "Week 4 Project"
+author: "Wen Che"
+date: "September 1, 2017"
+output: ioslides_presentation
+---
+
+
+## Purpose 
+This presentaion is about the final project for the Coursera Data Science Specialization Course: Developing Data Products.
+
+We will use three datasets (cars/pressure/rock) from Rstudio.
+
+
+## Datasets
+In the app, the end users can choose one from three datasets to see the summary.
+
+cars: The speed of cars (Speed) and the distances taken to stop (dist).
+
+rock: Measurements on Petroleum Rock Samples. Area of pores space (area) and perimeter in pixels (peri)
+
+pressure:Vapor Pressure of Mercury as a function of temparture
+
+## Visualize linear regression
+The end user can also choose the corresponded plot to visulaize the linear regression.
+
+At the plot end user can choose data points, and then predictive line will be automatically generated from a linear model based on the chosen data points.
+
+## App Link
+The project is developed by Shiny App from Rstudio.
+The Shiny App is accessible from here:https://cloe64.shinyapps.io/speed_vs_stop_distance/
+
+

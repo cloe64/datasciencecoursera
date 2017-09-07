@@ -101,23 +101,41 @@
 
 <p>This presentaion is about the final project for the Coursera Data Science Specialization Course: Developing Data Products.</p>
 
-<p>We will use three datasets (cars/pressure/rock) from Rstudio.</p>
+<p>We will use three datasets (cars/pressure/rock) from Rstudio.This app allows end user to chose the dataset and play with datasets plot to visualize the regression. R code is too long to attach in the presentation. Just include main blocks.</p>
 
-</article></slide><slide class=''><hgroup><h2>Datasets</h2></hgroup><article  id="datasets">
+</article></slide><slide class=''><hgroup><h2>ui.R</h2></hgroup><article  id="ui.r">
 
-<p>In the app, the end users can choose one from three datasets to see the summary.</p>
+<pre >sidebarPanel(
+   selectInput(inputId = &quot;option&quot;,label = &quot;Choose a dataset:&quot;,
+               choices = c(&quot;rock&quot;, &quot;pressure&quot;,&quot;cars&quot;)),
+   
+   radioButtons(&quot;plot_type&quot;,&quot;Select the plot to play with&quot;,
+                c(&quot;Visualize rock&quot;,&quot;Visualize pressure&quot;,&quot;Visualize cars&quot;)),
+   
+   h4(&quot;Slope from linear model&quot;),
+   textOutput(&quot;slopeOut&quot;),
+   
+   h4(&quot;Intercept from linear model&quot;),
+   textOutput(&quot;intOut&quot;)),
 
-<p>cars: The speed of cars (Speed) and the distances taken to stop (dist).</p>
+mainPanel(
+  plotOutput(&quot;plot1&quot;,brush=brushOpts(
+     id=&quot;brush1&quot;))</pre>
 
-<p>rock: Measurements on Petroleum Rock Samples. Area of pores space (area) and perimeter in pixels (peri)</p>
+</article></slide><slide class=''><hgroup><h2>server.R</h2></hgroup><article  id="server.r">
 
-<p>pressure:Vapor Pressure of Mercury as a function of temparture</p>
+<p>### Reactive function for dataset input, and another reaction function will generate to choose the data points in the plot according to end user&#39; option for Plot_type</p>
 
-</article></slide><slide class=''><hgroup><h2>Visualize linear regression</h2></hgroup><article  id="visualize-linear-regression">
+<pre class = 'prettyprint lang-r'>   optionInput &lt;- reactive({switch(input$option,
+                                   &quot;rock&quot; = rock,
+                                   &quot;pressure&quot; = pressure,
+                                   &quot;cars&quot; = cars)}</pre>
 
-<p>The end user can also choose the corresponded plot to visulaize the linear regression.</p>
+<p>### Plot will be generated according to end user&#39;s choice for &quot;Select the plot to play with&quot;</p>
 
-<p>At the plot end user can choose data points, and then predictive line will be automatically generated from a linear model based on the chosen data points.</p>
+<pre class = 'prettyprint lang-r'>   output$plot1&lt;-renderPlot({
+    optionchoice&lt;-optionInput()if(input$plot_type==&quot;Visualize rock&quot;)
+    {plot(rock$peri,...</pre>
 
 </article></slide><slide class=''><hgroup><h2>App Link</h2></hgroup><article  id="app-link">
 

@@ -6,42 +6,51 @@ output: ioslides_presentation
 ---
 
 
-## Purpose 
-This presentaion is about the final project for the Coursera Data Science Specialization Course: Developing Data Products.
+## Brief Discription
 
-We will use three datasets (cars/pressure/rock) from Rstudio.This app allows end user to chose the dataset and play with datasets plot to visualize the regression.
-R code is too long to attach in the presentation. Just include main blocks.
+We will use three datasets (cars/pressure/rock) from Rstudio.There are two parts for interactve:
+
+* First, this app allows end user to choose dataset for visulaizing summary. 
+* Second user can choose which dataset to get interactive plot.
+     In the plot user can click and drag the selection box, 
+     then linear regression line will generate based on chosen data. 
+
+R code is too long to attach in the presentation. Just include main blocks.The more details are included in the additional link.
 
 
 ## ui.R
     
-    sidebarPanel(
+Allow the user to choose the datasets
+```{r code1, eval=FALSE}
        selectInput(inputId = "option",label = "Choose a dataset:",
                    choices = c("rock", "pressure","cars")),
-       
+```
+Allow the user to choose the plot to visualize linear regression 
+```{r code2, eval=FALSE}
        radioButtons("plot_type","Select the plot to play with",
-                    c("Visualize rock","Visualize pressure","Visualize cars")),
-       
+                    c("Visualize rock","Visualize pressure",...
+```
+Display the Slope for the user
+```{r code3, eval=FALSE}
        h4("Slope from linear model"),
        textOutput("slopeOut"),
-       
-       h4("Intercept from linear model"),
-       textOutput("intOut")),
-    
+```
+Display the plot and return rows which user choose to generate linear regression  
+```{r code4, eval=FALSE}
     mainPanel(
       plotOutput("plot1",brush=brushOpts(
          id="brush1"))
-
+```
 ## server.R
-   Reactive function for dataset input, and another reaction function will generate to choose the data points in the plot according to end user'        option for Plot_type
-```{r code, eval=FALSE}
+   Reactive function for dataset input, and another reaction function for Plot_type
+```{r code5, eval=FALSE}
    optionInput <- reactive({switch(input$option,
                                    "rock" = rock,
                                    "pressure" = pressure,
                                    "cars" = cars)}
 ```
-   Plot will be generated according to end user's choice for "Select the plot to play with" 
-```{r code2, eval=FALSE}
+   Plot will be generated according to end user's input for "Select the plot to play with" 
+```{r code6, eval=FALSE}
    output$plot1<-renderPlot({
     optionchoice<-optionInput()if(input$plot_type=="Visualize rock")
     {plot(rock$peri,...

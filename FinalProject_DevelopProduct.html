@@ -97,41 +97,50 @@
           </hgroup>
   </slide>
 
-<slide class=''><hgroup><h2>Purpose</h2></hgroup><article  id="purpose">
+<slide class=''><hgroup><h2>Brief Discription</h2></hgroup><article  id="brief-discription">
 
-<p>This presentaion is about the final project for the Coursera Data Science Specialization Course: Developing Data Products.</p>
+<p>We will use three datasets (cars/pressure/rock) from Rstudio.There are two parts for interactve:</p>
 
-<p>We will use three datasets (cars/pressure/rock) from Rstudio.This app allows end user to chose the dataset and play with datasets plot to visualize the regression. R code is too long to attach in the presentation. Just include main blocks.</p>
+<ul>
+<li>First, this app allows end user to choose dataset for visulaizing summary.</li>
+<li>Second user can choose which dataset to get interactive plot. In the plot user can click and drag the selection box, then linear regression line will generate based on chosen data.</li>
+</ul>
+
+<p>R code is too long to attach in the presentation. Just include main blocks.The more details are included in the additional link.</p>
 
 </article></slide><slide class=''><hgroup><h2>ui.R</h2></hgroup><article  id="ui.r">
 
-<pre >sidebarPanel(
-   selectInput(inputId = &quot;option&quot;,label = &quot;Choose a dataset:&quot;,
-               choices = c(&quot;rock&quot;, &quot;pressure&quot;,&quot;cars&quot;)),
-   
-   radioButtons(&quot;plot_type&quot;,&quot;Select the plot to play with&quot;,
-                c(&quot;Visualize rock&quot;,&quot;Visualize pressure&quot;,&quot;Visualize cars&quot;)),
-   
-   h4(&quot;Slope from linear model&quot;),
-   textOutput(&quot;slopeOut&quot;),
-   
-   h4(&quot;Intercept from linear model&quot;),
-   textOutput(&quot;intOut&quot;)),
+<p>Allow the user to choose the datasets</p>
 
-mainPanel(
-  plotOutput(&quot;plot1&quot;,brush=brushOpts(
-     id=&quot;brush1&quot;))</pre>
+<pre class = 'prettyprint lang-r'>       selectInput(inputId = &quot;option&quot;,label = &quot;Choose a dataset:&quot;,
+                   choices = c(&quot;rock&quot;, &quot;pressure&quot;,&quot;cars&quot;)),</pre>
+
+<p>Allow the user to choose the plot to visualize linear regression</p>
+
+<pre class = 'prettyprint lang-r'>       radioButtons(&quot;plot_type&quot;,&quot;Select the plot to play with&quot;,
+                    c(&quot;Visualize rock&quot;,&quot;Visualize pressure&quot;,...</pre>
+
+<p>Display the Slope for the user</p>
+
+<pre class = 'prettyprint lang-r'>       h4(&quot;Slope from linear model&quot;),
+       textOutput(&quot;slopeOut&quot;),</pre>
+
+<p>Display the plot and return rows which user choose to generate linear regression</p>
+
+<pre class = 'prettyprint lang-r'>    mainPanel(
+      plotOutput(&quot;plot1&quot;,brush=brushOpts(
+         id=&quot;brush1&quot;))</pre>
 
 </article></slide><slide class=''><hgroup><h2>server.R</h2></hgroup><article  id="server.r">
 
-<p>Reactive function for dataset input, and another reaction function will generate to choose the data points in the plot according to end user&#39; option for Plot_type</p>
+<p>Reactive function for dataset input, and another reaction function for Plot_type</p>
 
 <pre class = 'prettyprint lang-r'>   optionInput &lt;- reactive({switch(input$option,
                                    &quot;rock&quot; = rock,
                                    &quot;pressure&quot; = pressure,
                                    &quot;cars&quot; = cars)}</pre>
 
-<p>Plot will be generated according to end user&#39;s choice for &quot;Select the plot to play with&quot;</p>
+<p>Plot will be generated according to end user&#39;s input for &quot;Select the plot to play with&quot;</p>
 
 <pre class = 'prettyprint lang-r'>   output$plot1&lt;-renderPlot({
     optionchoice&lt;-optionInput()if(input$plot_type==&quot;Visualize rock&quot;)
